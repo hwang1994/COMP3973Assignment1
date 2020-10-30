@@ -1,0 +1,63 @@
+﻿@model Assignment1.Models.VolumeInfo
+
+@{
+    ViewData["Title"] = "Content";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h1> @Model.title</h1>
+    <img src="@Model.imageLinks.smallThumbnail" />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.publisher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.authors)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.publishedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.industryIdentifiers[1].identifier)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.publisher
+                </td>
+                <td>
+                    @for (int j = 0; j < Model.authors.Length; j++)
+                    {
+                    <p>@Model.authors[j]</p>
+                    }
+                </td>
+                <td>
+                    @Model.publishedDate
+                </td>
+                <td>
+                    @for (int i = 0; i < Model.industryIdentifiers.Length; i++)
+                    {
+                        if (Model.industryIdentifiers[i].type.Equals("ISBN_10"))
+                        {
+                            @Model.industryIdentifiers[i].identifier
+                        }
+                    }
+                </td>
+                </tr>
+        </tbody>
+    </table>
+    <h3>@Html.DisplayNameFor(model => model.description)</h3>
+    <p>@Model.description</p>
+}
+else
+{
+    <h2>You need to be logged in to view book details</h2>
+}
+

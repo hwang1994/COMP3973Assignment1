@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Assignment1.Models.Item>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Books</h1>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.volumeInfo.title)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Books" asp-action="Content" asp-route-id="@item.id">@Html.DisplayFor(modelItem => item.volumeInfo.title)</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2>You need to be logged in to view books list</h2>
+}
